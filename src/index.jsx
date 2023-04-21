@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom/client";
 import "./styles.css";
 import AboutUsImg from "./about-us-img.jpg";
 import WebsiteDsgImg from "./file-solid.svg";
@@ -37,7 +36,7 @@ function TivePage() {
         <div className="topnav flex">
           <a
             className="orange"
-            href="index.js"
+            href="index.html"
             id="header-name"
             target="_blank"
           >
@@ -116,10 +115,6 @@ function TivePage() {
   }
 
   function AboutUs() {
-    const count_item1 = useRef();
-    const count_item2 = useRef();
-    const count_item3 = useRef();
-    const count_item4 = useRef();
     const [value, updateValue] = useState(0);
     const [no_four, changeNo] = useState(0);
     const [no_two, two] = useState(0);
@@ -167,10 +162,10 @@ function TivePage() {
     };
 
     const Houndler= ()=>{
-      setTimeout(setTimeout(counter, 250), 5000);
-      setTimeout(twoChange, 15);      
-      setTimeout(final, 50);
-      setTimeout(oneone, 20);
+      setTimeout(setTimeout(counter, 250), 500);
+      setTimeout(twoChange, 50);      
+      setTimeout(final, 70);
+      setTimeout(oneone, 120);
     ;
   }
 
@@ -190,13 +185,12 @@ function TivePage() {
         }
       })
     }
-  
 useEffect(()=>{
   let observerTest = new IntersectionObserver(intersectionCall, tweakers);
   if(aboutDiv.current)observerTest.observe(aboutDiv.current)
   return ()=> {if(aboutDiv.current) observerTest.unobserve(aboutDiv.current)}
 
-}, [aboutDiv, tweakers] )
+}, [aboutDiv, tweakers, intersectionCall] )
 
     return (
       <>
@@ -219,25 +213,25 @@ useEffect(()=>{
           ></img>
           <div className="nav-links">
             <div className="link flex">
-              <span className="midi orange" ref={count_item1}>
+              <span className="midi orange">
                 {value}+
               </span>
               <span className="flex"> Years of Experience</span>
             </div>
             <div className="link flex">
-              <span className="midi orange" ref={count_item2}>
+              <span className="midi orange">
                 {no_two}
               </span>
               <span className="flex"> Completed Projects</span>
             </div>
             <div className="link flex">
-              <span className="midi orange" ref={count_item3}>
+              <span className="midi orange">
                 {no_three}
               </span>
               <span className="flex">Happy Customers</span>
             </div>
             <div className="link flex">
-              <span className="midi orange" ref={count_item4}>
+              <span className="midi orange">
                 {no_four}
               </span>
               <span className="flex"> Users Reached</span>
@@ -249,6 +243,22 @@ useEffect(()=>{
     }
   function Services() {
     let parentContainer = useRef(null);
+
+    const slideIn = (num)=>
+    {
+      let services = parentContainer.current.children;
+      for (let x = 0; x < (services.length); x++) {
+      services[num - 1].classList.add("slide_one");
+      console.log(services[num - 1]);
+    } 
+    }
+
+    useEffect(()=> slideIn(1))
+    let intersectionObject = {
+      root: null ,
+      rootMargin: "0px",
+      threshold: [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    }
 
     function targetKids(){
        let kids = parentContainer.current.children;
@@ -278,7 +288,7 @@ useEffect(()=>{
             services you need to make the perfect first impressionsss
           </p>
         </div>
-        <div ref={parentContainer} >
+        <div ref={parentContainer} style={{position : "relative"}}>
           <div>
             <div
               className="flex service" 
@@ -390,13 +400,35 @@ useEffect(()=>{
             </div>
             </div>
             <div className="flex small">
-              <img src={design2} alt="Another one of our designs" className="hover_images" />
-              <img src={design3} alt="Yet another beautiful design" className="hover_images"/>
+              <div className="hover_image">
+              <img src={design2} alt="Another one of our designs"  />
+              <div className="overlay_text">
+              <p>A simple project showcasing our design capabilities as a design agency</p>
+            </div>
+              </div>
+
+              <div className="hover_image">
+              <img src={design3} alt="Yet another beautiful design"/>
+              <div className="overlay_text">
+              <p>A simple project showcasing our design capabilities as a design agency</p>
+            </div>
+              </div>
             </div>
           </div>
           <div className="flex side">
-            <img src={design2} alt="test one" className="hover_images" />
-            <img src={design3} alt="blowing" className="hover_images" />
+            <div className="hover_image">
+            <img src={design2} alt="test one"/>
+            <div className="overlay_text">
+              <p>A simple project showcasing our design capabilities as a design agency</p>
+            </div>
+            </div>
+
+            <div className="hover_image">
+            <img src={design3} alt="blowing"/>
+            <div className="overlay_text">
+              <p>A simple project showcasing our design capabilities as a design agency</p>
+            </div>
+            </div>
           </div>
         </div>
       </>
@@ -473,7 +505,7 @@ useEffect(()=>{
                     our business and expand our reach like never before "
                   </p>
 
-                  <div>- Jenna Hwang, Board of Directors, PeakStream Inc.</div>
+                  <div> - Rachael Rasmussen , Board of Directors, PeakStream Inc.</div>
                 </div>
               </div>
             </div>
